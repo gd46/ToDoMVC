@@ -30,6 +30,7 @@ var app = app || {};
 		initialize: function () {
 			this.allCheckbox = this.$('#toggle-all')[0];
 			this.$input = this.$('#new-todo');
+			this.$date = this.$("#date");
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 			this.$list = $('#todo-list');
@@ -98,6 +99,7 @@ var app = app || {};
 		newAttributes: function () {
 			return {
 				title: this.$input.val().trim(),
+				dueDate: this.$date.val().trim(),
 				order: app.todos.nextOrder(),
 				completed: false
 			};
@@ -106,9 +108,10 @@ var app = app || {};
 		// If you hit return in the main input field, create new **Todo** model,
 		// persisting it to *localStorage*.
 		createOnEnter: function (e) {
-			if (e.which === ENTER_KEY && this.$input.val().trim()) {
+			if (e.which === ENTER_KEY && this.$input.val().trim() && this.$date.val().trim()) {
 				app.todos.create(this.newAttributes());
 				this.$input.val('');
+				this.$date.val('');
 			}
 		},
 

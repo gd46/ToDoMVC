@@ -13,6 +13,8 @@ var app = app || {};
 		// and ensure that each todo created has `title` and `completed` keys.
 		defaults: {
 			title: '',
+			/* dueDate: new Date( $.now()), */
+			dueDate: '',
 			completed: false
 		},
 

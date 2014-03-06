@@ -141,8 +141,15 @@ input[type="checkbox"] {
 	background: rgba(0, 0, 0, 0.02);
 	z-index: 2;
 	box-shadow: none;
+	width: 400px;
 }
-
+#date {
+	border: none;
+	background: rgba(0, 0, 0, 0.02);
+	z-index: 2;
+	box-shadow: none;
+	height: 50px;
+}
 #main {
 	position: relative;
 	z-index: 2;

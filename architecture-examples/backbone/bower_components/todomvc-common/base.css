@@ -256,7 +256,14 @@ label[for='toggle-all'] {
 	-webkit-transition: color 0.4s;
 	transition: color 0.4s;
 }
-
+#title {
+	width: 200px;
+}
+#dueDate {
+	position: absolute;
+	left: 300px;
+	top: 1px;
+}
 #todo-list li.completed label {
 	color: #a9a9a9;
 	text-decoration: line-through;

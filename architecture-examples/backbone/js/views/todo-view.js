@@ -18,6 +18,8 @@ var app = app || {};
 		// The DOM events specific to an item.
 		events: {
 			'click .toggle': 'toggleCompleted',
+			'dragright label': 'dragLeft',
+			'dragleft label' : 'dragRight',
 			'dblclick label': 'edit',
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
@@ -51,6 +53,7 @@ var app = app || {};
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();
+			// My Notes -- This allows the todo task to be changed after editing
 			this.$input = this.$('.edit');
 			return this;
 		},
@@ -71,9 +74,16 @@ var app = app || {};
 		toggleCompleted: function () {
 			this.model.toggle();
 		},
+		dragLeft: function() {
+			this.model.isCompleted();
+		},
+		dragRight: function() {
+			this.model.notCompleted();
+		}, 
 
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function () {
+			// Allows the editing for the section el which contains the whole todo
 			this.$el.addClass('editing');
 			this.$input.focus();
 		},
@@ -82,6 +92,7 @@ var app = app || {};
 		close: function () {
 			var value = this.$input.val();
 			var trimmedValue = value.trim();
+
 
 			// We don't want to handle blur events from an item that is no
 			// longer being edited. Relying on the CSS class here has the
@@ -92,7 +103,7 @@ var app = app || {};
 			}
 
 			if (trimmedValue) {
-				this.model.save({ title: trimmedValue });
+				this.model.save({ title: trimmedValue  });
 
 				if (value !== trimmedValue) {
 					// Model values changes consisting of whitespaces only are

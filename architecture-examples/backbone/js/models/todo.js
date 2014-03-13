@@ -23,6 +23,16 @@ var app = app || {};
 			this.save({
 				completed: !this.get('completed')
 			});
+		},
+		isCompleted: function() {
+			this.save({
+				completed: true
+			});	
+		},
+		notCompleted: function() {
+			this.save({
+				completed: false
+			});
 		}
 	});
 })();

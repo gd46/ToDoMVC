@@ -40,6 +40,10 @@ var app = app || {};
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
 			this.listenTo(app.todos, 'all', this.render);
+			
+			//Trying to Add Sort
+			
+			//this.listenTo(app.todos, 'sort', this.sort);
 
 			// Suppresses 'add' events with {reset: true} and prevents the app view
 			// from being re-rendered for every model. Only renders when the 'reset'
@@ -52,14 +56,14 @@ var app = app || {};
 		render: function () {
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
-
+			
 			if (app.todos.length) {
 				this.$main.show();
 				this.$footer.show();
 
 				this.$footer.html(this.statsTemplate({
 					completed: completed,
-					remaining: remaining
+					remaining: remaining,
 				}));
 
 				this.$('#filters li a')
@@ -97,9 +101,12 @@ var app = app || {};
 
 		// Generate the attributes for a new Todo item.
 		newAttributes: function () {
+		//	var s = new Date(this.$date.val().trim());
 			return {
 				title: this.$input.val().trim(),
-				dueDate: this.$date.val().trim(),
+				//dueDate: s.getTime(),
+				//dueDate: this.$date.val().trim(),
+				dueDate: moment(this.$date.val().trim(), "YYYY"),
 				order: app.todos.nextOrder(),
 				completed: false
 			};

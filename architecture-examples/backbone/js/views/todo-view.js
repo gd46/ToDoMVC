@@ -1,6 +1,14 @@
 /*global Backbone, jQuery, _, ENTER_KEY, ESC_KEY */
 var app = app || {};
-
+/* Backbone.Model.prototype.toJSON = function() {
+	return this._parseDates(this.attributes);
+};
+Backbone.Model.prototype._parseDates = function(attrs) {
+	attrs = _.clone(attrs);
+	var newdate = attrs.dueDate.split("/").reverse().join("/");
+	attrs.dueDate = new Date(newdate).toISOString();
+	return attrs;
+}; */
 (function ($) {
 	'use strict';
 
@@ -24,7 +32,7 @@ var app = app || {};
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
-			'blur .edit': 'close'
+			'blur .edit': 'close',
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since
@@ -55,6 +63,7 @@ var app = app || {};
 			this.toggleVisible();
 			// My Notes -- This allows the todo task to be changed after editing
 			this.$input = this.$('.edit');
+			this.$dueDate = this.$('.edit');
 			return this;
 		},
 
@@ -86,6 +95,7 @@ var app = app || {};
 			// Allows the editing for the section el which contains the whole todo
 			this.$el.addClass('editing');
 			this.$input.focus();
+			this.$dueDate.focus();
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
@@ -138,6 +148,7 @@ var app = app || {};
 		// Remove the item, destroy the model from *localStorage* and delete its view.
 		clear: function () {
 			this.model.destroy();
-		}
+		},
+
 	});
 })(jQuery);

@@ -106,7 +106,7 @@ var app = app || {};
 				title: this.$input.val().trim(),
 				//dueDate: s.getTime(),
 				//dueDate: this.$date.val().trim(),
-				dueDate: moment(this.$date.val().trim(), "YYYY"),
+				dueDate: moment(Date.parse(this.$date.val().trim())).format("MM/DD/YYYY"),
 				order: app.todos.nextOrder(),
 				completed: false
 			};
